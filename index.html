@@ -1,28 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Warehouse Quiz Game</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Warehouse Character Quiz</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #f1f1f1;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 0;
+      margin: 0;
+    }
+    header {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      border-bottom: 2px solid #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    .question {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .options button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      margin: 6px 0;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .options button:hover {
+      background-color: #555;
+    }
+    .scoreboard {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 20px;
+    }
+  </style>
 </head>
 <body>
-  <div id="quiz-container">
-    <div id="scoreboard">
-      <span>Score: <span id="score">0</span></span>
+  <header>Warehouse Character Quiz</header>
+  <div class="container">
+    <div id="quiz-container">
+      <div id="question" class="question"></div>
+      <div id="options" class="options"></div>
     </div>
-    <h1>Warehouse Character Quiz</h1>
-    <div id="question-container">
-      <p id="question-text"></p>
-      <div id="options-container">
-        <button class="option" onclick="checkAnswer(0)">A</button>
-        <button class="option" onclick="checkAnswer(1)">B</button>
-        <button class="option" onclick="checkAnswer(2)">C</button>
-        <button class="option" onclick="checkAnswer(3)">D</button>
-      </div>
-    </div>
-    <button id="next-btn" onclick="nextQuestion()">Next</button>
+    <div class="scoreboard" id="scoreboard"></div>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    const quizData = [
+      {
+        question: "Who is most likely to say 'Shirts off, boys'?",
+        options: ["McCarty", "Tony", "Josh", "Brad Knigga"],
+        answer: "McCarty"
+      },
+      {
+        question: "Who dated a famous NFL player's mom?",
+        options: ["Keith", "Joe", "Preston", "Guck"],
+        answer: "Keith"
+      },
+      {
+        question: "Who chipped his hoof walking across the street to the gas station?",
+        options: ["Don", "Greico", "Rob Thomas", "Ricky"],
+        answer: "Don"
+      },
+      {
+        question: "Who looks like Mother Teresa and has the skin of a Sherpa puppy?",
+        options: ["Joe", "McCarty", "Fox", "Spille"],
+        answer: "Joe"
+      },
+      {
+        question: "Who is most likely to plug a Coke bottle with his tongue?",
+        options: ["Keith", "Big Mike", "Jake", "Daniel House"],
+        answer: "Keith"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const scoreboardEl = document.getElementById('scoreboard');
+
+    function loadQuestion() {
+      const current = quizData[currentQuestion];
+      questionEl.textContent = current.question;
+      optionsEl.innerHTML = "";
+      current.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(option);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected) {
+      const correct = quizData[currentQuestion].answer;
+      if (selected === correct) score++;
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showScore();
+      }
+    }
+
+    function showScore() {
+      questionEl.textContent = "Quiz Complete!";
+      optionsEl.innerHTML = "";
+      scoreboardEl.textContent = `You scored ${score} out of ${quizData.length}`;
+    }
+
+    loadQuestion();
+  </script>
 </body>
 </html>
