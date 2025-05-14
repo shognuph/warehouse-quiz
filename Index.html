@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warehouse Quiz Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="quiz-container">
+    <div id="scoreboard">
+      <span>Score: <span id="score">0</span></span>
+    </div>
+    <h1>Warehouse Character Quiz</h1>
+    <div id="question-container">
+      <p id="question-text"></p>
+      <div id="options-container">
+        <button class="option" onclick="checkAnswer(0)">A</button>
+        <button class="option" onclick="checkAnswer(1)">B</button>
+        <button class="option" onclick="checkAnswer(2)">C</button>
+        <button class="option" onclick="checkAnswer(3)">D</button>
+      </div>
+    </div>
+    <button id="next-btn" onclick="nextQuestion()">Next</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
